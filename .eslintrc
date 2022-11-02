@@ -1,0 +1,16 @@
+{
+  "plugins": ["prittier"],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 13,
+    // 모듈 export를 위해 import, export를 사용 가능여부를 설정, script는 사용불가
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
