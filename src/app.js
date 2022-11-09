@@ -8,9 +8,13 @@ const app = express();
 const { port } = appConfig;
 
 app.use(cors());
+app.use(express.json());
 
 app.use('/', router);
-app.use('/login', userRouter);
-app.use('/user', authRouter);
+app.use('/user', userRouter);
+app.use('/auth/login', authRouter);
 
-app.listen(port, () => console.log(`Open Server Port : ${port}`));
+app.use((err, req, res, next) => res.json({ message: err.message }));
+app.listen(port, () =>
+  console.log(`Open Server Port : ${process.env.PORT || port}`),
+);
