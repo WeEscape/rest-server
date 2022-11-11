@@ -1,8 +1,8 @@
 import { v4 } from 'uuid';
-import { dobbyDB } from '../config/db.configs.js';
+import { dobbyDB } from './database.js';
 
-export const userTable = async (type, data) => {
-  const sqlstatement = {
+export const userTable = async (type, userinfo) => {
+  const sqlStatement = {
     select: selectUser,
     insert: insertUser,
     update: updateUser,
@@ -11,10 +11,10 @@ export const userTable = async (type, data) => {
 
   const connection = await dobbyDB.getConnection(async (conn) => conn);
   try {
-    const sql = await sqlstatement[type](data);
-    const res = await connection.query(sql);
+    const sql = await sqlStatement[type](userinfo);
+    const resultSets = await connection.query(sql);
     // console.log(res[0]);
-    return res[0];
+    return resultSets[0];
   } catch (err) {
     return err;
   } finally {
@@ -22,8 +22,8 @@ export const userTable = async (type, data) => {
   }
 };
 
-const selectUser = (id) => {
-  const userSelect = `SELECT * FROM dobby.USERS WHERE social_id='${id}';`;
+const selectUser = (socialId) => {
+  const userSelect = `SELECT * FROM dobby.USERS WHERE social_id='${socialId}';`;
   return userSelect;
 };
 
