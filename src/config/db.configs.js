@@ -1,4 +1,3 @@
-import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -10,7 +9,3 @@ export const dbconfig = {
   port: 3306,
   connectionLimit: 10,
 };
-
-export const dobbyDB = mysql.createPool(dbconfig);
-
-
