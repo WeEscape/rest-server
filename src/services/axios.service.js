@@ -19,9 +19,9 @@ const kakaoLogin = async (token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    const { id } = response.data;
+    const { id: socialId } = response.data;
     const { nickname, profile_image } = response.data.properties;
-    return { id, type: 'kakao', nickname, profile_image };
+    return { socialId, type: 'kakao', nickname, profile_image };
   } catch (err) {
     return err;
   }
