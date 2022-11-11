@@ -6,10 +6,9 @@ const authRouter = express.Router();
 authRouter
   .route('/')
   .get((req, res) => res.send('helloworldzzzz!'))
-  .post((req, res, next) => {
+  .post(async (req, res, next) => {
     const body = req.body;
-    console.log(body);
-    const login = postLogin(body);
+    const login = await postLogin(body);
     res.send(login);
   });
 
