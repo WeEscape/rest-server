@@ -8,4 +8,5 @@ export const dbconfig = {
   database: process.env.DB_NAME,
   port: 3306,
   connectionLimit: 10,
+  dateStrings: 'date',
 };
