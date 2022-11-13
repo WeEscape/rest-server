@@ -1,5 +1,5 @@
 import { UsersTable } from '../models/user.model.js';
-import { createAccessToken, createRefreshToken } from '../utils/jwt.util.js';
+import { createAccessToken, createRefreshToken } from './/jwt.service.js';
 import { Oauth } from './axios.service.js';
 
 export const postLogin = async (loginUserData) => {
