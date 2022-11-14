@@ -15,10 +15,19 @@ export const createAccessToken = async (user_id) => {
 
 export const createRefreshToken = async (user_id) => {
   const refresh_token = jwt.sign({}, secretKey, refresh_option);
-  const createDate = new Date();
   const expiredDate = await getDate();
   const user_ip = '123.456.789';
   const refreshtoken_data = { user_id, user_ip, refresh_token, expiredDate };
   const result = await RefreshTokenTable('insert', refreshtoken_data);
+  console.log(result);
   return refresh_token;
+};
+
+export const decodeAccessToken = async (token) => {
+  try {
+    const jwtDecode = jwt.verify(token, secretKey);
+    return jwtDecode;
+  } catch (err) {
+    return err;
+  }
 };
