@@ -14,8 +14,8 @@ app.use(express.json());
 app.use(helmet());
 
 app.use('/', router);
-app.use('/user', userRouter);
-app.use('/auth/login', authRouter);
+app.use('/users/profile', userRouter);
+app.use('/auth', authRouter);
 
 app.use((err, req, res, next) => res.json({ message: err.message }));
 
