@@ -20,3 +20,14 @@ export const editUserProfile = async (update_date) => {
     return err;
   }
 };
+
+export const deleteUser = async (access_token) => {
+  try {
+    const decodedInfo = await decodeAccessToken(access_token);
+    const { id: user_id } = decodedInfo;
+    const successDelete = await UsersTable('delete', user_id);
+    return successDelete;
+  } catch (err) {
+    return err;
+  }
+};
