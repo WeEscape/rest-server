@@ -17,7 +17,11 @@ app.use('/', router);
 app.use('/users/profile', userRouter);
 app.use('/auth', authRouter);
 
-app.use((err, req, res, next) => res.json({ message: err.message }));
+app.use((err, req, res, next) => {
+  console.log(err);
+
+  res.status(400).send('err');
+});
 
 app.listen(port, () =>
   console.log(`Open Server Port : ${process.env.PORT || port}`),
