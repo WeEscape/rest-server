@@ -14,12 +14,14 @@ export const createAccessToken = async (user_id) => {
 };
 
 export const createRefreshToken = async (user_id) => {
+  const checkRefreshToken = await RefreshTokenTable('checkUserid', user_id);
   const refresh_token = jwt.sign({}, secretKey, refresh_option);
   const expiredDate = await getDate('expired');
   const user_ip = '123.456.789';
   const refreshtoken_data = { user_id, user_ip, refresh_token, expiredDate };
-  const result = await RefreshTokenTable('insert', refreshtoken_data);
-  console.log(result);
+  const sqlcommand = checkRefreshToken[0] ? 'updateToken' : 'insert';
+  const runSQL = await RefreshTokenTable(sqlcommand, refreshtoken_data);
+  console.log(runSQL);
   return refresh_token;
 };
 
