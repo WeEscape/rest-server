@@ -4,11 +4,11 @@ import { dobbyDB } from './database.js';
 const loginUser = (socialId) => {
   const checkSocialid = `SELECT user_id FROM dobby.USERS WHERE social_id='${socialId}';`;
   const loginUpdate = ` UPDATE dobby.USERS SET is_connect='1' WHERE social_id='${socialId}'`;
-  return checkSocialid + loginUpdate
+  return checkSocialid + loginUpdate;
 };
 
-const getUserInfo = (userId) => {
-  const userId_Select = `SELECT * FROM dobby.USERS WHERE user_id='${userId}';`;
+const getUserInfo = (user_id) => {
+  const userId_Select = `SELECT * FROM dobby.USERS WHERE user_id='${user_id}';`;
   userId_Select;
   return userId_Select;
 };
@@ -35,7 +35,11 @@ const logoutUser = (logoutData) => {
   `;
 };
 
-const deleteUser = () => {};
+const deleteProfile = (user_id) => {
+  const profile_Delete = `DELETE FROM USERS WHERE user_id=${user_id}`;
+  const refreshToken_Delete = `DELETE FROM USERS_REFRESH_TOKENS WHERE user_id=${user_id}`;
+  return profile_Delete + refreshToken_Delete;
+};
 
 const sqlCommands = {
   login: loginUser,
@@ -43,7 +47,7 @@ const sqlCommands = {
   insert_newUser: socialSingup,
   editProfile: updateProfile,
   logout: logoutUser,
-  delete: deleteUser,
+  delete: deleteProfile,
 };
 
 // USERS 테이블
