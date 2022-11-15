@@ -1,5 +1,5 @@
 import express from 'express';
-import { postLogin, postSignup } from '../services/auth.service.js';
+import { postLogin, postLogout, postSignup } from '../services/auth.service.js';
 
 const authRouter = express.Router();
 
@@ -20,5 +20,11 @@ authRouter.post('/signup', async (req, res, next) => {
     res.status(400).send({ message: 'falid', status: 400 });
   }
 });
+
+authRouter.post('/logout', async (req,res,next) => {
+  const logoutUser_id = req.body;
+  const res_logout = await postLogout(logoutUser_id)
+  res.send('fg')
+  })
 
 export default authRouter;
