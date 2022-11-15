@@ -18,4 +18,11 @@ userRouter.put('/', async (req, res) => {
     res.send(userInfo)
 });
 
+userRouter.delete('/', async (req,res) => {
+  const request_header = req.headers['authorization'];
+  if (!request_header)
+  return res.status(400).send({ message: 'access_token is not defined' });
+  const access_token = request_header.split('Bearer ')[1];
+})
+
 export default userRouter;
