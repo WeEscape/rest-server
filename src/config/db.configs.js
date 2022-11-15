@@ -9,4 +9,5 @@ export const dbconfig = {
   port: 3306,
   connectionLimit: 10,
   dateStrings: 'date',
+  multipleStatements: true,
 };
