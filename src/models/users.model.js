@@ -1,19 +1,19 @@
 import { createRandomId } from '../utils/uniqueId.util.js';
 import { dobbyDB } from './database.js';
 
-const loginUser = (socialId) => {
-  const checkSocialid = `SELECT user_id FROM dobby.USERS WHERE social_id='${socialId}';`;
-  const loginUpdate = ` UPDATE dobby.USERS SET is_connect='1' WHERE social_id='${socialId}'`;
+const selectUserid = (socialId) => {
+  const checkSocialid = `SELECT user_id FROM USERS WHERE social_id='${socialId}';`;
+  const loginUpdate = ` UPDATE USERS SET is_connect='1' WHERE social_id='${socialId}'`;
   return checkSocialid + loginUpdate;
 };
 
-const getUserInfo = (user_id) => {
-  const userId_Select = `SELECT * FROM dobby.USERS WHERE user_id='${user_id}';`;
+const selectUserInfo = (user_id) => {
+  const userId_Select = `SELECT * FROM USERS WHERE user_id='${user_id}'`;
   userId_Select;
   return userId_Select;
 };
 
-const socialSingup = (user_data) => {
+const insertUser = (user_data) => {
   const { socialId, type, user_name, profile_url } = user_data;
   const userInsert = `INSERT INTO USERS(user_id,social_id,social_type,user_name,profile_url)\ 
   VALUES('${createRandomId()}','${socialId}','${type}','${user_name}','${profile_url}');`;
@@ -28,25 +28,25 @@ const updateProfile = (user_data) => {
   return profileUpdate;
 };
 
-const logoutUser = (logoutData) => {
-  const { connect_Date } = logoutData;
+const updateConnect = (logout_Data) => {
+  const { connect_Date } = logout_Data;
   const logoutUpdate = `UPDATE USERS SET\
-  is_connect=${0} last_connected_at=${connect_Date} WHERE user_id=${user_id}
+  is_connect=0 last_connected_at=${connect_Date} WHERE user_id=${user_id}
   `;
 };
 
 const deleteProfile = (user_id) => {
-  const profile_Delete = `DELETE FROM USERS WHERE user_id=${user_id}`;
-  const refreshToken_Delete = `DELETE FROM USERS_REFRESH_TOKENS WHERE user_id=${user_id}`;
+  const profile_Delete = `DELETE FROM USERS WHERE user_id='${user_id}';`;
+  const refreshToken_Delete = `DELETE FROM USERS_REFRESH_TOKENS WHERE user_id='${user_id}'`;
   return profile_Delete + refreshToken_Delete;
 };
 
 const sqlCommands = {
-  login: loginUser,
-  select_userId: getUserInfo,
-  insert_newUser: socialSingup,
+  login: selectUserid,
+  select_userId: selectUserInfo,
+  insert_newUser: insertUser,
   editProfile: updateProfile,
-  logout: logoutUser,
+  logout: updateConnect,
   delete: deleteProfile,
 };
 
