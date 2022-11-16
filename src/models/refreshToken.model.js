@@ -26,7 +26,7 @@ const updateRefreshToken = (refreshtoken_data) => {
 const sqlCommands = {
   checkToken: selectRefresh_Token,
   checkUserid: selectUser_id,
-  updateToken : updateRefreshToken,
+  updateToken: updateRefreshToken,
   insert: insertRefresh_Token,
 };
 
@@ -34,10 +34,13 @@ export const RefreshTokenTable = async (sqlSyntax, refreshtoken_data) => {
   const connection = await dobbyDB.getConnection(async (conn) => conn);
   try {
     const sql = await sqlCommands[sqlSyntax](refreshtoken_data);
+    await connection.beginTransaction();
     const resultSets = await connection.query(sql);
-    console.log(resultSets[0])
+    await connection.commit();
+    console.log(resultSets[0]);
     return resultSets[0];
   } catch (err) {
+    await connection.rollback();
     return err;
   } finally {
     connection.release();

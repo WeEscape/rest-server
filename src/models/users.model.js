@@ -53,12 +53,14 @@ const sqlCommands = {
 // USERS 테이블
 export const UsersTable = async (sqlSyntax, userinfo) => {
   const connection = await dobbyDB.getConnection(async (conn) => conn);
-  // const VALUES = Object.values(userinfo);
   try {
     const sql = await sqlCommands[sqlSyntax](userinfo);
+    await connection.beginTransaction();
     const resultSets = await connection.query(sql);
+    await connection.commit();
     return resultSets[0];
   } catch (err) {
+    await connection.rollback();
     return err;
   } finally {
     connection.release();
