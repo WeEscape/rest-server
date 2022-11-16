@@ -2,11 +2,11 @@ import { dobbyDB } from './database.js';
 
 const selectRefresh_Token = async (refreshtoken_data) => {
   const { refresh_token } = refreshtoken_data;
-  const selectSQL = `SELECT user_id FROM dobby.USERS_REFRESH_TOKENS WHERE token='${refresh_token}'`;
+  const selectSQL = `SELECT user_id FROM USERS_REFRESH_TOKENS WHERE token='${refresh_token}'`;
   return selectSQL;
 };
 const selectUser_id = async (user_id) => {
-  const selectSQL = `SELECT user_id FROM dobby.USERS_REFRESH_TOKENS WHERE token='${user_id}'`;
+  const selectSQL = `SELECT user_id FROM USERS_REFRESH_TOKENS WHERE user_id='${user_id}'`;
   return selectSQL;
 };
 const insertRefresh_Token = async (refreshtoken_data) => {
@@ -19,7 +19,7 @@ const insertRefresh_Token = async (refreshtoken_data) => {
 const updateRefreshToken = (refreshtoken_data) => {
   const { user_id, user_ip, refresh_token, expiredDate } = refreshtoken_data;
   const updateSQL = `UPDATE USERS_REFRESH_TOKENS SET\
-  token='${refresh_token}' exprired_at='${expiredDate}' WHERE user_id='${user_id}'`;
+  token='${refresh_token}', expired_at='${expiredDate}' WHERE user_id='${user_id}'`;
   return updateSQL;
 };
 
@@ -35,6 +35,7 @@ export const RefreshTokenTable = async (sqlSyntax, refreshtoken_data) => {
   try {
     const sql = await sqlCommands[sqlSyntax](refreshtoken_data);
     const resultSets = await connection.query(sql);
+    console.log(resultSets[0])
     return resultSets[0];
   } catch (err) {
     return err;
