@@ -5,6 +5,7 @@ import userRouter from './routes/user.router.js';
 import authRouter from './routes/auth.router.js';
 import appConfig from './config/app.config.js';
 import helmet from 'helmet';
+import { logger } from './config/logger.config.js';
 
 const app = express();
 const { port } = appConfig;
@@ -24,5 +25,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () =>
-  console.log(`Open Server Port : ${process.env.PORT || port}`),
+  logger.info(`Open Server Port ${process.env.PORT || port}`),
 );
