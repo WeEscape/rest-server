@@ -7,6 +7,7 @@ import appConfig from './config/app.config.js';
 import helmet from 'helmet';
 import { logger } from './config/logger.config.js';
 import groupRouter from './routes/group.router.js';
+import taskRouter from './routes/task.router.js';
 
 const app = express();
 const { port } = appConfig;
@@ -19,10 +20,10 @@ app.use('/', router);
 app.use('/users/profile', userRouter);
 app.use('/auth', authRouter);
 app.use('/groups', groupRouter);
+app.use('/task',taskRouter);
 
 app.use((err, req, res, next) => {
   console.log(err);
-
   res.status(400).send('err');
 });
 
