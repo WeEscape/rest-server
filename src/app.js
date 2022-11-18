@@ -6,6 +6,7 @@ import authRouter from './routes/auth.router.js';
 import appConfig from './config/app.config.js';
 import helmet from 'helmet';
 import { logger } from './config/logger.config.js';
+import groupRouter from './routes/group.router.js';
 
 const app = express();
 const { port } = appConfig;
@@ -17,6 +18,7 @@ app.use(helmet());
 app.use('/', router);
 app.use('/users/profile', userRouter);
 app.use('/auth', authRouter);
+app.use('/groups', groupRouter);
 
 app.use((err, req, res, next) => {
   console.log(err);
