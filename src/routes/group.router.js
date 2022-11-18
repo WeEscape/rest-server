@@ -11,8 +11,8 @@ const groupRouter = express.Router();
 groupRouter.post('/', async (req, res, next) => {
   logger.info(JSON.stringify(req.body));
   try {
-    const group_data = req.body;
-    const result = await GroupService.createGroup(GroupsTable, group_data);
+    const groupData = req.body;
+    const result = await GroupService.createGroup(GroupsTable, groupData);
     return res.status(200).send({ message: 'success!', data: result });
   } catch (err) {
     logger.error(err);
@@ -26,8 +26,8 @@ groupRouter.get('/:group_id', async (req, res, next) => {
     const request_header = req.headers['authorization'];
     const access_token = request_header.split(' ')[1];
     const { id: user_id } = await decodeAccessToken(access_token);
-    const group_data = { group_id, user_id };
-    const result = await GroupService.getGroup(GroupsTable, group_data);
+    const groupData = { group_id, user_id };
+    const result = await GroupService.getGroup(GroupsTable, groupData);
     if (!result.group_id) throw new Error('undefined');
     return res.status(200).send(result);
   } catch (err) {
@@ -43,8 +43,8 @@ groupRouter.put('/:group_id', async (req, res, next) => {
     const access_token = request_header.split(' ')[1];
     const { id: user_id } = await decodeAccessToken(access_token);
     if (!user_id) throw new Error('undefined');
-    const group_data = { group_id, user_id };
-    const result = await GroupService.editGroup(GroupsTable, group_data);
+    const groupData = { group_id, user_id };
+    const result = await GroupService.editGroup(GroupsTable, groupData);
     return res.status(200).send(result);
   } catch (err) {
     next(err);
@@ -58,8 +58,8 @@ groupRouter.delete('/:group_id', async (req, res, next) => {
     const access_token = request_header.split(' ')[1];
     const { id: user_id } = await decodeAccessToken(access_token);
     if (!user_id) throw new Error('undefined');
-    const group_data = { group_id, user_id };
-    await GroupService.deleteGroup(GroupsTable, group_data);
+    const groupData = { group_id, user_id, };
+    await GroupService.deleteGroup(GroupsTable, groupData);
     return res.status(200).send({ message: 'success delete' });
   } catch (err) {
     next(err);
@@ -71,10 +71,10 @@ groupRouter.delete('/:group_id', async (req, res, next) => {
 // 그룹 유저
 groupRouter.post('/users', async (req, res, next) => {
   try {
-    const user_data = req.body;
+    const userData = req.body;
     const result = await GroupService.createGroupUser(
       GroupsUsersTable,
-      user_data,
+      userData,
     );
     return res.status(200).send({ message: 'success!', data: result });
   } catch (err) {
@@ -89,11 +89,11 @@ groupRouter.get('/users/:group_id', async (req, res, next) => {
     const access_token = request_header.split(' ')[1];
     const { id: user_id } = await decodeAccessToken(access_token);
     if (!user_id) throw new Error('undefined');
-    const group_data = { group_id, user_id };
+    const groupData = { group_id, user_id };
     const result = await GroupService.getGroupUser(
       GroupsUsersTable,
       user,
-      group_data,
+      groupData,
     );
     return res.status(200).send(result);
   } catch (err) {
@@ -109,8 +109,8 @@ groupRouter.delete('/users/:group_id', async (req, res, next) => {
     const access_token = request_header.split(' ')[1];
     const { id: user_id } = await decodeAccessToken(access_token);
     if (!user_id) throw new Error('undefined');
-    const group_data = { group_id, user_id };
-    await GroupService.deleteGroupUser(GroupsUsersTable, group_data);
+    const groupData = { group_id, user_id };
+    await GroupService.deleteGroupUser(GroupsUsersTable, groupData);
     return res.status(200).send({ message: 'success delete' });
   } catch (err) {
     next(err);

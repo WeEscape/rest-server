@@ -1,21 +1,21 @@
 // 그룹
-const createGroup = async (groupTable, group_data) => {
-  const runSQL = await groupTable('insert', group_data);
+const createGroup = async (groupTable, groupData) => {
+  const runSQL = await groupTable('insert', groupData);
   return runSQL[1][0];
 };
 
-const getGroup = async (groupTable, group_data) => {
-  const runSQL = await groupTable('select', group_data);
+const getGroup = async (groupTable, groupData) => {
+  const runSQL = await groupTable('select', groupData);
   return { data: runSQL[0] };
 };
 
-const editGroup = async (groupTable, group_data) => {
-  const runSQL = await groupTable('update', group_data);
+const editGroup = async (groupTable, groupData) => {
+  const runSQL = await groupTable('update', groupData);
   return { data: runSQL[0] };
 };
 
-const deleteGroup = async (groupTable, group_data) => {
-  const runSQL = await groupTable('delete', group_data);
+const deleteGroup = async (groupTable, groupData) => {
+  const runSQL = await groupTable('delete', groupData);
   return { data: runSQL[0] };
 };
 
