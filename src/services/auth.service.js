@@ -1,3 +1,4 @@
+import { logger } from '../config/logger.config.js';
 import { RefreshTokenTable } from '../models/refreshToken.model.js';
 import { UsersTable } from '../models/users.model.js';
 import { getDate } from '../utils/getDate.util.js';
@@ -16,7 +17,7 @@ export const login = async (loginUserData) => {
   const { socialId } = await Oauth(loginUserData);
   const runSQL = await UsersTable('login', socialId);
   const { user_id } = runSQL[0][0];
-
+  if (!user_id) throw Error('uesr_id not defined');
   const access_token = await createAccessToken(user_id);
   const refresh_token = await createRefreshToken(user_id);
   return { access_token, refresh_token };
