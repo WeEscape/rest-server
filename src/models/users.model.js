@@ -1,4 +1,4 @@
-import { createRandomId } from '../utils/uniqueId.util.js';
+import { createRandomId } from '../utils/randomString.util.js';
 import { dobbyDB } from './database.js';
 
 const selectUserid = (socialId) => {
