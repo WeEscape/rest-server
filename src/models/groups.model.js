@@ -1,15 +1,20 @@
-import { dobbyDB } from './database';
+import { dobbyDB } from './database.js';
+import {
+  createInviteCode,
+  createRandomId,
+} from '../utils/randomString.util.js';
 
 const insertGroup = (group_data) => {
-  const { group_id, user_id, title, invite_code } = group_data;
+  const { user_id, title } = group_data;
   const insertSQL = `INSERT INTO GROUPS (group_id, user_id,title,invite_code) VALUES\
-    ('${group_id}','${user_id}','${title}','${invite_code}')
-    `;
-  return insertSQL;
+    ('${createRandomId()}','${user_id}','${title}','${createInviteCode()}');`;
+  const selectSQL = `SELECT * FROM GROUPS WHERE  user_id='${user_id}'`;
+  return insertSQL + selectSQL;
 };
 
-const selectGroup = (group_id) => {
-  const selectSQL = `SELECT * FROM GROUPS WHERE group_id='${group_id}'`;
+const selectGroup = (group_data) => {
+  const { group_id, user_id } = group_data;
+  const selectSQL = `SELECT * FROM GROUPS WHERE group_id='${group_id}' AND user_id='${user_id}'`;
   return selectSQL;
 };
 

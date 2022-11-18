@@ -1,17 +1,19 @@
-import { dobbyDB } from './database';
+import { dobbyDB } from './database.js';
 
 const insertGroupUser = (groupUser_data) => {
   const { group_id, user_id } = groupUser_data;
-  const insertSQL = `INSERT INTO GROUPS (group_id, user_id) VALUES ('${group_id}','${user_id}')`;
-  return insertSQL;
+  const insertSQL = `INSERT INTO GROUPS_USERS (group_id, user_id) VALUES ('${group_id}','${user_id}');`;
+  const selectSQL = `SELECT * FROM GROUPS_USERS WHERE  user_id='${user_id}'`;
+  return insertSQL + selectSQL;
 };
-const selectGroupUser = (group_id) => {
-  const selectSQL = `SELECT * FROM GROUPS WHERE group_id='${group_id}'`;
+const selectGroupUser = (groupUser_data) => {
+  const { group_id, user_id } = groupUser_data;
+  const selectSQL = `SELECT * FROM GROUPS_USERS WHERE group_id='${group_id}' AND user_id='${user_id}'`;
   return selectSQL;
 };
 const deleteGroupUser = (groupUser_data) => {
   const { group_id, user_id } = groupUser_data;
-  const deleteSQL = `DELETE FROM GROUPS WHERE group_id = '${group_id}' AND user_id = '${user_id}'`;
+  const deleteSQL = `DELETE FROM GROUPS_USERS WHERE group_id = '${group_id}' AND user_id = '${user_id}'`;
   return deleteSQL;
 };
 
@@ -21,7 +23,7 @@ const sqlCommands = {
   delete: deleteGroupUser,
 };
 
-export const GroupsTable = async (sqlSyntax, userinfo) => {
+export const GroupsUsersTable = async (sqlSyntax, userinfo) => {
   const connection = await dobbyDB.getConnection(async (conn) => conn);
   try {
     const sql = await sqlCommands[sqlSyntax](userinfo);
