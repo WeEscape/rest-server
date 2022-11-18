@@ -1,12 +1,14 @@
 export const getDate = async (expired) => {
   const createDate = new Date();
-  const year = createDate.getFullYear();
-  const month = createDate.getMonth();
-  const date = createDate.getDate();
-  const hours = createDate.getHours();
-  const minutes = createDate.getMinutes();
-  const seconds = createDate.getSeconds();
+  const expiredDate = new Date(createDate.setDate(createDate.getDate() + 14));
+  const getDate = expired ? expiredDate : createDate;
+  const year = getDate.getFullYear();
+  const month = getDate.getMonth();
+  const date = getDate.getDate();
+  const hours = getDate.getHours();
+  const minutes = getDate.getMinutes();
+  const seconds = getDate.getSeconds();
 
-  const resultDate = `${year}-${month + 1}-${expired ? date + 14 : date} ${hours}:${minutes}:${seconds}`;
+  const resultDate = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
   return resultDate;
 };
