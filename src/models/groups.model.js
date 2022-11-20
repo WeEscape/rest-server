@@ -18,15 +18,17 @@ const selectGroup = (group_data) => {
   return selectSQL;
 };
 
-const updateGroup = (group_data) => {
-  const { title, group_id } = group_data;
+const updateGroup = (groupData) => {
+  const { title, group_id } = groupData;
   const updateSQL = `UPDATE GROUPS SET title='${title}' WHERE group_id='${group_id}'`;
   return updateSQL;
 };
 
-const deleteGroup = (group_data) => {
-  const { group_id, user_id } = group_data;
-  const deleteSQL = `DELETE FROM GROUPS WHERE group_id = '${group_id}' AND user_id = '${user_id}'`;
+const deleteGroup = (groupData) => {
+  const { group_id, user_id } = groupData;
+  const deleteSQL = `DELETE t1, t2 FROM GROUPS t1 LEFT JOIN GROUPS_USERS t2 ON t1.user_id = t2.user_id\
+  WHERE t1.group_id = '${group_id}' AND t1.user_id = '${user_id}' ;`;
+
   return deleteSQL;
 };
 
