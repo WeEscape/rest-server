@@ -1,16 +1,20 @@
-import { UsersTable } from '../models/users.model.js';
+import { TableQuery } from '../models/database.js';
+import { UsersModel } from '../models/users.model.js';
 
 export const getUser = async (user_id) => {
-  const userProfile = await UsersTable('select_userId', user_id);
-  return userProfile[0];
+  const sql = await UsersModel.selectUserid(user_id);
+  const user = await TableQuery(sql);
+  return user[0];
 };
 
 export const editUserProfile = async (update_date) => {
-  const updateInfo = await UsersTable('update', update_date);
-  return updateInfo;
+  const sql = await UsersModel.updateProfile(update_date);
+  const user = await TableQuery(sql);
+  return user;
 };
 
 export const deleteUser = async (user_id) => {
-  const successDelete = await UsersTable('delete', user_id);
-  return successDelete;
+  const sql = await UsersModel.deleteProfile(user_id);
+  const success = await TableQuery(sql);
+  return success;
 };
