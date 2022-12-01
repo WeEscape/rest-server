@@ -32,12 +32,3 @@ export const createRefreshToken = async (user_id) => {
 
   return refresh_token;
 };
-
-export const decodeAccessToken = async (token) => {
-  try {
-    const jwtDecode = jwt.verify(token, secretKey);
-    return jwtDecode;
-  } catch (err) {
-    return err;
-  }
-};
