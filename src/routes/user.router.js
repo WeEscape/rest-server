@@ -4,19 +4,26 @@ import {
   deleteUser,
   editUserProfile,
   getUser,
+  UserService,
 } from '../services/user.service.js';
+import { checkRequestHeader } from '../utils/checkHeader.utll.js';
 
 const userRouter = express.Router();
 
 userRouter.get('/', async (req, res, next) => {
   try {
-    const request_header = req.headers['authorization'];
-    const access_token = request_header.split(' ')[1];
+    const access_token = checkRequestHeader(req);
     const { id: user_id } = await decodeAccessToken(access_token);
-    if (!user_id) throw new Error('undefined');
-    const resultUserInfo = await getUser(user_id);
-    return res.send({ data: resultUserInfo });
+
+    if (!user_id) {
+      throw new Error('undefined');
+    }
+
+    const resultUserInfo = await UserService.getUser(user_id);
+
+    return res.status(200).send({ data: resultUserInfo });
   } catch (err) {
+    next(err);
     return res.status(400).send({ message: 'access_token is not defined' });
   }
 });
@@ -24,22 +31,28 @@ userRouter.get('/', async (req, res, next) => {
 userRouter.put('/', async (req, res, next) => {
   try {
     const update_date = req.body();
-    const resultUserInfo = await editUserProfile(update_date);
-    return res.send({ data: resultUserInfo });
+    const resultUserInfo = await UserService.editUserProfile(update_date);
+    return res.status(200).send({ data: resultUserInfo });
   } catch (err) {
     next(err);
+    return res.status(400).send({ message: err });
   }
 });
 
 userRouter.delete('/', async (req, res, next) => {
   try {
-    const request_header = req.headers['authorization'];
-    const access_token = request_header.split(' ')[1];
+    const access_token = checkRequestHeader(req);
     const { id: user_id } = await decodeAccessToken(access_token);
-    if (!user_id) throw new Error('undefined');
-    const resultDelete = await deleteUser(user_id);
-    return res.send({ message: 'success delete' });
+
+    if (!user_id) {
+      throw new Error('undefined');
+    }
+
+    const resultDelete = await UserService.deleteUser(user_id);
+
+    return res.status(200).send({ message: 'success delete' });
   } catch (err) {
+    next(err);
     return res.status(400).send({ message: 'access_token is not defined' });
   }
 });
