@@ -1,9 +1,8 @@
 import express from 'express';
 import { logger } from '../config/logger.config.js';
 import { CategoriesService } from '../services/categories.service.js';
-import { decodeAccessToken } from '../services/jwt.service.js';
 import { TaskService } from '../services/task.service.js';
-import { checkRequestHeader } from '../utils/checkHeader.utll.js';
+import { checkAccessToken } from '../utils/checkHeader.utll.js';
 
 const taskRouter = express.Router();
 
@@ -21,9 +20,8 @@ taskRouter.post('/', async (req, res, next) => {
 
 taskRouter.get('/:task_id', async (req, res, next) => {
   try {
-    const access_token = await checkRequestHeader(req);
+    const user_id = await checkAccessToken(req);
     const { task_id } = req.params;
-    const { id: user_id } = await decodeAccessToken(access_token);
 
     const taskData = { task_id, user_id };
     const result = await TaskService.getTask(taskData);
@@ -40,14 +38,13 @@ taskRouter.get('/:task_id', async (req, res, next) => {
 });
 taskRouter.put('/:task_id', async (req, res, next) => {
   try {
-    const access_token = await checkRequestHeader(req);
-    const user_id = await decodeAccessToken(access_token);
+    const user_id = await checkAccessToken(req);
 
     if (!user_id) {
       throw new Error('undefined');
     }
 
-    const taskData = { ...req.params, ...user_id, ...req.body };
+    const taskData = { ...req.params, user_id, ...req.body };
     const result = await TaskService.editTask(taskData);
 
     return res.status(200).send({ message: 'success!', data: result });
@@ -59,9 +56,8 @@ taskRouter.put('/:task_id', async (req, res, next) => {
 
 taskRouter.delete('/:task_id', async (req, res, next) => {
   try {
-    const access_token = await checkRequestHeader(req);
+    const user_id = await checkAccessToken(req);
     const { task_id } = req.params;
-    const { id: user_id } = await decodeAccessToken(access_token);
 
     if (!user_id) {
       throw new Error('user_id is undefined');
@@ -90,9 +86,8 @@ taskRouter.post('/categories', async (req, res, next) => {
 });
 taskRouter.get('/categories/:category_id', async (req, res, next) => {
   try {
-    const access_token = await checkRequestHeader(req);
+    const user_id = await checkAccessToken(req);
     const { category_id } = req.params;
-    const { id: user_id } = await decodeAccessToken(access_token);
 
     if (!user_id) {
       throw new Error('user_id is not defined');
@@ -110,10 +105,9 @@ taskRouter.get('/categories/:category_id', async (req, res, next) => {
 
 taskRouter.put('/categories/:category_id', async (req, res, next) => {
   try {
-    const access_token = await checkRequestHeader(req);
+    const user_id = await checkAccessToken(req);
     const { category_id } = req.params;
     const { title } = req.body;
-    const { id: user_id } = await decodeAccessToken(access_token);
 
     if (!user_id) {
       throw new Error('user_id is not defined');
@@ -131,9 +125,8 @@ taskRouter.put('/categories/:category_id', async (req, res, next) => {
 
 taskRouter.delete('/categories/:category_id', async (req, res, next) => {
   try {
-    const access_token = await checkRequestHeader(req);
+    const user_id = await checkAccessToken(req);
     const { category_id } = req.params;
-    const { id: user_id } = await decodeAccessToken(access_token);
 
     if (!user_id) {
       throw new Error('user_id is undefined');

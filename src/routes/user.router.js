@@ -1,14 +1,12 @@
 import express from 'express';
-import { decodeAccessToken } from '../services/jwt.service.js';
 import { UserService } from '../services/user.service.js';
-import { checkRequestHeader } from '../utils/checkHeader.utll.js';
+import { checkAccessToken } from '../utils/checkHeader.utll.js';
 
 const userRouter = express.Router();
 
 userRouter.get('/', async (req, res, next) => {
   try {
-    const access_token = await checkRequestHeader(req);
-    const { id: user_id } = await decodeAccessToken(access_token);
+    const user_id = await checkAccessToken(req);
 
     if (!user_id) {
       throw new Error('undefined');
@@ -36,8 +34,7 @@ userRouter.put('/', async (req, res, next) => {
 
 userRouter.delete('/', async (req, res, next) => {
   try {
-    const access_token = await checkRequestHeader(req);
-    const { id: user_id } = await decodeAccessToken(access_token);
+    const user_id = await checkAccessToken(req);
 
     if (!user_id) {
       throw new Error('undefined');
