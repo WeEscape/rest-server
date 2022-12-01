@@ -8,7 +8,6 @@ const selectUserid = async (socialId) => {
 
 const selectUserInfo = async (user_id) => {
   const userId_Select = `SELECT * FROM USERS WHERE user_id='${user_id}'`;
-  userId_Select;
   return userId_Select;
 };
 
