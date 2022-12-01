@@ -21,7 +21,7 @@ groupRouter.post('/', async (req, res, next) => {
 
 groupRouter.get('/:group_id', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { group_id } = req.params;
     const { id: user_id } = await decodeAccessToken(access_token);
     const groupData = { group_id, user_id };
@@ -40,7 +40,7 @@ groupRouter.get('/:group_id', async (req, res, next) => {
 
 groupRouter.put('/:group_id', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { group_id } = req.params;
     const { id: user_id } = await decodeAccessToken(access_token);
 
@@ -59,7 +59,7 @@ groupRouter.put('/:group_id', async (req, res, next) => {
 
 groupRouter.delete('/:group_id', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { group_id } = req.params;
     const { id: user_id } = await decodeAccessToken(access_token);
 
@@ -93,7 +93,7 @@ groupRouter.post('/users', async (req, res, next) => {
 
 groupRouter.get('/users/:group_id', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { group_id } = req.params;
     const { id: user_id } = await decodeAccessToken(access_token);
 
@@ -113,7 +113,7 @@ groupRouter.get('/users/:group_id', async (req, res, next) => {
 
 groupRouter.delete('/users/:group_id', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { group_id } = req.params;
     const { id: user_id } = await decodeAccessToken(access_token);
 
