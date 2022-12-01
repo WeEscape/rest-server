@@ -1,11 +1,6 @@
 import express from 'express';
 import { decodeAccessToken } from '../services/jwt.service.js';
-import {
-  deleteUser,
-  editUserProfile,
-  getUser,
-  UserService,
-} from '../services/user.service.js';
+import { UserService } from '../services/user.service.js';
 import { checkRequestHeader } from '../utils/checkHeader.utll.js';
 
 const userRouter = express.Router();
