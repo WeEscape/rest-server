@@ -1,10 +1,11 @@
 import express from 'express';
+import { userValidation } from '../middleware/validation/validation.js';
 import { UserService } from '../services/user.service.js';
 import { checkAccessToken } from '../utils/checkHeader.utll.js';
 
 const userRouter = express.Router();
 
-userRouter.get('/', async (req, res, next) => {
+userRouter.get('/', userValidation.readUser, async (req, res, next) => {
   try {
     const user_id = await checkAccessToken(req);
 
@@ -21,7 +22,7 @@ userRouter.get('/', async (req, res, next) => {
   }
 });
 
-userRouter.put('/', async (req, res, next) => {
+userRouter.put('/', userValidation.updateUser, async (req, res, next) => {
   try {
     const update_date = req.body();
     const resultUserInfo = await UserService.editUserProfile(update_date);
@@ -32,7 +33,7 @@ userRouter.put('/', async (req, res, next) => {
   }
 });
 
-userRouter.delete('/', async (req, res, next) => {
+userRouter.delete('/', userValidation.deleteUser, async (req, res, next) => {
   try {
     const user_id = await checkAccessToken(req);
 

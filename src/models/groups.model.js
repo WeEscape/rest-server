@@ -18,8 +18,8 @@ const selectGroup = async (group_data) => {
 };
 
 const updateGroup = async (groupData) => {
-  const { title, group_id } = groupData;
-  const updateSQL = `UPDATE GROUPS SET title='${title}' WHERE group_id='${group_id}'`;
+  const { title, group_id, uesr_id } = groupData;
+  const updateSQL = `UPDATE GROUPS SET title='${title}' WHERE group_id='${group_id}' AND user_id='${uesr_id}'`;
   return updateSQL;
 };
 
