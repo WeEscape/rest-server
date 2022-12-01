@@ -7,7 +7,7 @@ import { createAccessToken, createRefreshToken } from './/jwt.service.js';
 import { Oauth } from './axios.service.js';
 
 // 회원가입
-export const signup = async (socialTokens) => {
+const signup = async (socialTokens) => {
   const userInfo = await Oauth(socialTokens);
   const sql = await UsersModel.insertUser(userInfo);
   const runSQL = await TableQuery(sql);
@@ -15,24 +15,23 @@ export const signup = async (socialTokens) => {
 };
 
 // 로그인
-export const login = async (loginUserData) => {
+const login = async (loginUserData) => {
   const { socialId } = await Oauth(loginUserData);
   const sql = await UsersModel.selectUserid(socialId);
-  const runSQL = await TableQuery(sql);
-  const { user_id } = runSQL[0][0];
+  const loginUser = await TableQuery(sql);
 
+  const { user_id } = loginUser[0][0];
   if (!user_id) {
     throw Error('uesr_id not defined');
   }
 
   const access_token = await createAccessToken(user_id);
-  const refresh_token = await createRefreshToken(user_id);
-
+  const refresh_token = await createRefreshToken('user_id');
   return { access_token, refresh_token };
 };
 
 // 로그아웃
-export const logout = async (logoutUser_id) => {
+const logout = async (logoutUser_id) => {
   const { user_id } = logoutUser_id;
   const connect_Date = getDate();
 
@@ -49,7 +48,7 @@ export const logout = async (logoutUser_id) => {
 };
 
 // 토큰 재발급
-export const reissueTokens = async (refreshToken) => {
+const reissueTokens = async (refreshToken) => {
   const sql = await RefreshTokenModel.selectRefresh_Token(refreshToken);
   const runSQL = await TableQuery(sql);
 
@@ -62,4 +61,11 @@ export const reissueTokens = async (refreshToken) => {
   const refresh_token = await createRefreshToken(user_id);
 
   return { access_token, refresh_token };
+};
+
+export const AuthService = {
+  signup,
+  login,
+  logout,
+  reissueTokens,
 };
