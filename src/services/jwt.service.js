@@ -4,7 +4,8 @@ import {
   refresh_option,
   secretKey,
 } from '../config/jwt.config.js';
-import { RefreshTokenTable } from '../models/refreshToken.model.js';
+import { TableQuery } from '../models/database.js';
+import { RefreshTokenModel } from '../models/refreshToken.model.js';
 import { getDate } from '../utils/getDate.util.js';
 
 export const createAccessToken = async (user_id) => {
@@ -14,14 +15,21 @@ export const createAccessToken = async (user_id) => {
 };
 
 export const createRefreshToken = async (user_id) => {
-  const checkRefreshToken = await RefreshTokenTable('checkUserid', user_id);
+  const selectSQL = await RefreshTokenModel.selectUser_id(user_id);
+  const checkRefreshToken = await TableQuery(selectSQL);
+
   const refresh_token = jwt.sign({}, secretKey, refresh_option);
   const expiredDate = await getDate('expired');
   const user_ip = '123.456.789';
   const refreshtoken_data = { user_id, user_ip, refresh_token, expiredDate };
-  const sqlcommand = checkRefreshToken[0] ? 'updateToken' : 'insert';
-  const runSQL = await RefreshTokenTable(sqlcommand, refreshtoken_data);
-  console.log(runSQL);
+
+  if (!checkRefreshToken[0]) {
+    const insertSQL = await RefreshTokenModel.insertRefresh_Token(
+      refreshtoken_data,
+    );
+    await TableQuery(insertSQL);
+  }
+
   return refresh_token;
 };
 
