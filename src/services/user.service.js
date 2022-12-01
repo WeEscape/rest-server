@@ -2,7 +2,7 @@ import { TableQuery } from '../models/database.js';
 import { UsersModel } from '../models/users.model.js';
 
 const getUser = async (user_id) => {
-  const sql = await UsersModel.selectUserid(user_id);
+  const sql = await UsersModel.selectUserInfo(user_id);
   const user = await TableQuery(sql);
   return user[0];
 };

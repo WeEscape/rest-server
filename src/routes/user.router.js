@@ -7,7 +7,7 @@ const userRouter = express.Router();
 
 userRouter.get('/', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { id: user_id } = await decodeAccessToken(access_token);
 
     if (!user_id) {
@@ -36,7 +36,7 @@ userRouter.put('/', async (req, res, next) => {
 
 userRouter.delete('/', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { id: user_id } = await decodeAccessToken(access_token);
 
     if (!user_id) {

@@ -90,7 +90,7 @@ taskRouter.post('/categories', async (req, res, next) => {
 });
 taskRouter.get('/categories/:category_id', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { category_id } = req.params;
     const { id: user_id } = await decodeAccessToken(access_token);
 
@@ -110,7 +110,7 @@ taskRouter.get('/categories/:category_id', async (req, res, next) => {
 
 taskRouter.put('/categories/:category_id', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { category_id } = req.params;
     const { title } = req.body;
     const { id: user_id } = await decodeAccessToken(access_token);
@@ -131,7 +131,7 @@ taskRouter.put('/categories/:category_id', async (req, res, next) => {
 
 taskRouter.delete('/categories/:category_id', async (req, res, next) => {
   try {
-    const access_token = checkRequestHeader(req);
+    const access_token = await checkRequestHeader(req);
     const { category_id } = req.params;
     const { id: user_id } = await decodeAccessToken(access_token);
 
