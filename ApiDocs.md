@@ -1,4 +1,5 @@
 # 요청별 API 문서
+`get` , `post` , `put` , `delete`
 
 ## Auth
 
