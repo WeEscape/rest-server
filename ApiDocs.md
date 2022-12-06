@@ -1,5 +1,5 @@
 # 요청별 API 문서
-`get` , `post` , `put` , `delete`
+`get` , `post` , `put` , `delete`<br>
 Auth, Users, Task, Categories, Groups
 
 ## Auth
