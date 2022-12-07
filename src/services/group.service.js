@@ -3,32 +3,32 @@ import { GroupsModel, GroupUsersModel } from '../models/groups.model.js';
 
 // 그룹
 const createGroup = async (groupData) => {
-  const sql = await GroupsModel.insertGroup(groupData);
+  const sql = GroupsModel.insertGroup(groupData);
   const group = TableQuery(sql);
   return group[1][0];
 };
 
 const getGroup = async (groupData) => {
-  const sql = await GroupsModel.selectGroup(groupData);
+  const sql = GroupsModel.selectGroup(groupData);
   const group = await TableQuery(sql);
   return { data: group[0] };
 };
 
 const editGroup = async (groupData) => {
-  const sql = await GroupsModel.updateGroup(groupData);
+  const sql = GroupsModel.updateGroup(groupData);
   const group = await TableQuery(sql);
   return { data: group[0] };
 };
 
 const deleteGroup = async (groupData) => {
-  const sql = await GroupsModel.deleteGroup(groupData);
+  const sql = GroupsModel.deleteGroup(groupData);
   const group = await TableQuery(sql);
   return { data: group[0] };
 };
 
 // 그룹유저
 const createGroupUser = async (groupUesr_data) => {
-  const sql = await GroupUsersModel.insertGroupUser(groupUesr_data);
+  const sql = GroupUsersModel.insertGroupUser(groupUesr_data);
   const groupUser = await TableQuery(sql);
   console.log(groupUser);
   return groupUser[1][0];

@@ -9,7 +9,7 @@ import { Oauth } from './axios.service.js';
 // 회원가입
 const signup = async (socialTokens) => {
   const userInfo = await Oauth(socialTokens);
-  const sql = await UsersModel.insertUser(userInfo);
+  const sql = UsersModel.insertUser(userInfo);
   const runSQL = await TableQuery(sql);
   return runSQL;
 };
@@ -17,7 +17,7 @@ const signup = async (socialTokens) => {
 // 로그인
 const login = async (loginUserData) => {
   const { socialId } = await Oauth(loginUserData);
-  const sql = await UsersModel.selectUserid(socialId);
+  const sql = UsersModel.selectUserid(socialId);
   const loginUser = await TableQuery(sql);
 
   const { user_id } = loginUser[0][0];
@@ -41,7 +41,7 @@ const logout = async (logoutUser_id) => {
 
   const logoutData = { user_id, connect_Date };
 
-  const sql = await UsersModel.updateConnect(logoutData);
+  const sql = UsersModel.updateConnect(logoutData);
   const runSQL = await TableQuery(sql);
 
   return runSQL;
@@ -49,7 +49,7 @@ const logout = async (logoutUser_id) => {
 
 // 토큰 재발급
 const reissueTokens = async (refreshToken) => {
-  const sql = await RefreshTokenModel.selectRefresh_Token(refreshToken);
+  const sql = RefreshTokenModel.selectRefresh_Token(refreshToken);
   const runSQL = await TableQuery(sql);
 
   if (!runSQL) {

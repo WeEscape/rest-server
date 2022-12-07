@@ -15,7 +15,7 @@ export const createAccessToken = async (user_id) => {
 };
 
 export const createRefreshToken = async (user_id) => {
-  const selectSQL = await RefreshTokenModel.selectUser_id(user_id);
+  const selectSQL = RefreshTokenModel.selectUser_id(user_id);
   const checkRefreshToken = await TableQuery(selectSQL);
 
   const refresh_token = jwt.sign({}, secretKey, refresh_option);
@@ -24,9 +24,7 @@ export const createRefreshToken = async (user_id) => {
   const refreshtoken_data = { user_id, user_ip, refresh_token, expiredDate };
 
   if (!checkRefreshToken[0]) {
-    const insertSQL = await RefreshTokenModel.insertRefresh_Token(
-      refreshtoken_data,
-    );
+    const insertSQL = RefreshTokenModel.insertRefresh_Token(refreshtoken_data);
     await TableQuery(insertSQL);
   }
 
