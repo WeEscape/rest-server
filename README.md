@@ -1,7 +1,36 @@
 
-OOP ver : https://github.com/WeEscape/Server
+## dobby
 
-## 폴더구조
+
+## Description
+<br>
+<br>
+
+
+## Stack
+### 개발
+`Expressjs`, `MariaDB`
+<br>
+
+### 배포
+`Naver-Cloud` , `Docker-compose`, `Nginx`
+
+## Start
+
+
+## Architecture
+<details>
+  <summary><h3>프로젝트 구조</h3></summary>
+
+- `api` - 서버요청 로직
+- `components` - 공통 컴포넌트
+- `config` - 기타 설정   
+- `hooks` -  비즈니스 로직
+- `pages` - 페이지 루트
+- `redux` - 상태관리
+- `router` - 경로 설정
+- `util` - 기타 함수 
+- `views` - 페이지 컴포넌트
 
 ```
 dobby
@@ -51,3 +80,6 @@ dobby
       └─ randomString.util.js
 
 ```
+
+</details>
+
