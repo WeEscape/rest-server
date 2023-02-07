@@ -9,9 +9,9 @@
 
 ## Description
 
-가정생활을 하며 누가 언제 해당 가사를 했는지 모르고 집안일 관리가 힘들다는 것을 느꼈습니다. 
-빨래와 화장실 청소 등 역할이 분담되어 있는 경우<br/> 
-주기가 있는데 언제해야할 지 알려주어 가정에서 가사 분담을 체계적으로 나눠 효율적인 집안일을 하기 위해 기획하였습니다. 
+가정생활을 하며 누가 언제 해당 가사를 했는지 모르고 집안일 관리가 힘들다는 것을 느꼈습니다.<br/> 
+빨래와 화장실 청소 등 역할이 분담되어 있는 경우 주기가 있는데 언제해야할 지 알려주어 가정에서 가사 분담을 체계적으로 나눠<br/>
+효율적인 집안일을 하기 위해 기획하였습니다. 
 
 <br>
 <br>
@@ -19,7 +19,7 @@
 
 ## Stack
 ### 개발
-`Expressjs`, `MariaDB`
+`Expressjs`, `JWT`, `MariaDB`
 <br>
 
 ### 배포
@@ -32,15 +32,12 @@
 <details>
   <summary><h3>프로젝트 구조</h3></summary>
 
-- `api` - 서버요청 로직
-- `components` - 공통 컴포넌트
-- `config` - 기타 설정   
-- `hooks` -  비즈니스 로직
-- `pages` - 페이지 루트
-- `redux` - 상태관리
-- `router` - 경로 설정
-- `util` - 기타 함수 
-- `views` - 페이지 컴포넌트
+- `config` - 환경설정 로직
+- `middleware` - 로거,유효성검사 로직
+- `models` - DB 쿼리 로직   
+- `routes` -  라우터 처리 로직
+- `services` - 비즈니스 로직
+- `utils` - 기타함수
 
 ```
 dobby
@@ -513,3 +510,19 @@ HTTP/1.1 404 Bad Request
 <details>
  <summary><h3>Groups</h3></summary>
 </details>
+
+## DB
+
+### 테이블정보
+|table|description|
+|-|-|
+|Users|회원정보|
+|Users_Refresh_Tokens|회원 리프레시 토큰|
+|Tasks|할일|
+|Gruops|그룹 및 공유|
+|Categories|할일 카테고리|
+|Dormants_Users|휴면계정|
+
+### ERD
+<img width=700px height=500px  src="https://user-images.githubusercontent.com/87120463/217277491-25786889-cddf-4256-a3ee-ecedb587f5c7.png" />
+
