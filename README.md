@@ -1,5 +1,6 @@
 
-## 도비 dobby (체계적인 가사분담)
+## 📱 도비 dobby (체계적인 가사분담)
+
 ### 집안일 관리 서비스
 
 
@@ -7,13 +8,14 @@
 
 
 
-## Description
+## 💬 Description
 
 가정생활을 하며 누가 언제 해당 가사를 했는지 모르고 집안일 관리가 힘들다는 것을 느꼈습니다.<br/> 
 빨래와 화장실 청소 등 역할이 분담되어 있는 경우 주기가 있는데 언제해야할 지 알려주어 가정에서 가사 분담을 체계적으로 나눠<br/>
 효율적인 집안일을 하기 위해 기획하였습니다. 
 
-## Stack
+## 🛠 Stack
+
 ### 개발
 `Expressjs`, `JWT`, `MariaDB`
 <br>
@@ -21,10 +23,10 @@
 ### 배포
 `Naver-Cloud` , `Docker`, `Nginx`
 
-## Start
+## ✅ Start
 
 
-## Architecture
+## 📔 Architecture
 <details>
   <summary><h3>프로젝트 구조</h3></summary>
 
@@ -86,7 +88,7 @@ dobby
 
 </details>
 
-## API
+## 📚 API
 
 
 <details>
@@ -507,7 +509,7 @@ HTTP/1.1 404 Bad Request
  <summary><h3>Groups</h3></summary>
 </details>
 
-## DB
+## 🗃 DataBase
 
 ### 테이블정보
 |table|description|
