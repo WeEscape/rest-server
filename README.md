@@ -1,7 +1,7 @@
 
 ## 📱 도비 dobby (체계적인 가사분담)
 
-### 집안일 관리 서비스
+집안일 관리 서비스
 
 
 <img src="https://user-images.githubusercontent.com/87120463/217172577-029cf21a-505e-445d-a7cd-56d440ad1526.png" width=300px height=400px />    <img src="https://user-images.githubusercontent.com/87120463/217172863-b1d268aa-24b9-4185-85c3-4be7bf35128f.png" width=300px height=400px />
