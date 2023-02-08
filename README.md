@@ -1,6 +1,22 @@
-OOP ver : https://github.com/WeEscape/Server
+## Start
+
+```java
+git clone
+npm install
+npm run start // localhost:8080
+```
+
 
 ## 폴더구조
+<details>
+  <summary><h3>프로젝트 구조</h3></summary>
+
+- `config` - 환경설정 로직
+- `middleware` - 로거,유효성검사 로직
+- `models` - DB 쿼리 로직   
+- `routes` -  라우터 처리 로직
+- `services` - 비즈니스 로직
+- `utils` - 기타함수
 
 ```
 dobby
@@ -50,3 +66,5 @@ dobby
       └─ randomString.util.js
 
 ```
+
+</details>
