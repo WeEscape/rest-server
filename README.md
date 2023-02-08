@@ -25,6 +25,15 @@
 
 ## ✅ Start
 
+```
+git clone
+git checkout -b develop
+git pull origin develop
+
+npm install
+npm run statrt
+```
+
 
 ## 📔 Architecture
 <details>
