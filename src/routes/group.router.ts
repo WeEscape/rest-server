@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { logger } from '../config/logger.config.js';
 import { groupValidation } from '../middleware/validation/validation.js';
 import { GroupService } from '../services/group.service.js';
@@ -7,17 +7,21 @@ import { checkAccessToken } from '../utils/checkHeader.utll.js';
 const groupRouter = express.Router();
 
 // 그룹
-groupRouter.post('/', groupValidation.createGroup, async (req, res, next) => {
-  logger.info(JSON.stringify(req.body));
-  try {
-    const groupData = req.body;
-    const result = await GroupService.createGroup(groupData);
-    return res.status(200).send({ message: 'success!', data: result });
-  } catch (err) {
-    logger.error(err);
-    return res.status(400).send(err);
-  }
-});
+groupRouter.post(
+  '/',
+  groupValidation.createGroup,
+  async (req: Request, res: Response, next: NextFunction) => {
+    logger.info(JSON.stringify(req.body));
+    try {
+      const groupData = req.body;
+      const result = await GroupService.createGroup(groupData);
+      return res.status(200).send({ message: 'success!', data: result });
+    } catch (err) {
+      logger.error(err);
+      return res.status(400).send(err);
+    }
+  },
+);
 
 groupRouter.get(
   '/:group_id',

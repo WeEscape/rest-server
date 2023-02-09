@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import router from './routes/index.router.js';
 import userRouter from './routes/user.router.js';
@@ -20,9 +20,9 @@ app.use('/', router);
 app.use('/users/profile', userRouter);
 app.use('/auth', authRouter);
 app.use('/groups', groupRouter);
-app.use('/task',taskRouter);
+app.use('/task', taskRouter);
 
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.log(err);
   res.status(400).send('err');
 });
