@@ -1,4 +1,4 @@
-import { decodeAccessToken } from './decodeToken.util.js';
+import { decodeAccessToken } from './decodeToken.util';
 
 export const checkAccessToken = async (req) => {
   const request_header = req.headers['authorization'];

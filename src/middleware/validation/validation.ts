@@ -1,6 +1,11 @@
 import { body, validationResult } from 'express-validator';
+import { Request, Response, NextFunction } from 'express';
 
-export const validateErrors = async (req, res, next) => {
+export const validateErrors = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({ error: errors.array() });
@@ -8,7 +13,7 @@ export const validateErrors = async (req, res, next) => {
   next();
 };
 
-const validateBody = (key) => {
+const validateBody = (key: string) => {
   return body(key)
     .isString()
     .notEmpty()

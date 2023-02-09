@@ -3,10 +3,10 @@ import {
   access_option,
   refresh_option,
   secretKey,
-} from '../config/jwt.config.js';
-import { TableQuery } from '../models/database.js';
-import { RefreshTokenModel } from '../models/refreshToken.model.js';
-import { getDate } from '../utils/getDate.util.js';
+} from '../config/jwt.config';
+import { TableQuery } from '../models/database';
+import { RefreshTokenModel } from '../models/refreshToken.model';
+import { getDate } from '../utils/getDate.util';
 
 export const createAccessToken = async (user_id) => {
   const payload = { id: user_id };

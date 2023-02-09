@@ -58,7 +58,7 @@ groupRouter.put(
       }
 
       const groupData = { title, group_id, user_id };
-      const result = await GroupService.editGroup(GroupsTable, groupData);
+      const result = await GroupService.editGroup(groupData);
 
       return res.status(200).send(result);
     } catch (err) {

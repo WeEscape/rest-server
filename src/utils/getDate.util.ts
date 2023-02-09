@@ -1,4 +1,4 @@
-export const getDate = async (expired) => {
+export const getDate = async (expired: string) => {
   const createDate = new Date();
   const expiredDate = new Date(createDate.setDate(createDate.getDate() + 14));
   const getDate = expired ? expiredDate : createDate;

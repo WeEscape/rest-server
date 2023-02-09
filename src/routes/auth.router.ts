@@ -1,5 +1,4 @@
 import express from 'express';
-import { body } from 'express-validator';
 import { authValidation } from '../middleware/validation/validation.js';
 import { AuthService } from '../services/auth.service.js';
 

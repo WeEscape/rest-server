@@ -1,5 +1,5 @@
-import { TableQuery } from '../models/database.js';
-import { TaskModel } from '../models/tasks.model.js';
+import { TableQuery } from '../models/database';
+import { TaskModel } from '../models/tasks.model';
 
 const createTask = async (taskData) => {
   const sql = TaskModel.insertTask(taskData);

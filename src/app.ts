@@ -1,13 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import router from './routes/index.router.js';
-import userRouter from './routes/user.router.js';
-import authRouter from './routes/auth.router.js';
-import appConfig from './config/app.config.js';
+import router from './routes/index.router';
+import userRouter from './routes/user.router';
+import authRouter from './routes/auth.router';
+import appConfig from './config/app.config';
 import helmet from 'helmet';
-import { logger } from './config/logger.config.js';
-import groupRouter from './routes/group.router.js';
-import taskRouter from './routes/task.router.js';
+import { logger } from './config/logger.config';
+import groupRouter from './routes/group.router';
+import taskRouter from './routes/task.router';
 
 const app = express();
 const { port } = appConfig;

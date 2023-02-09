@@ -1,9 +1,9 @@
-import { logger } from '../config/logger.config.js';
-import { TableQuery } from '../models/database.js';
-import { RefreshTokenModel } from '../models/refreshToken.model.js';
-import { UsersModel } from '../models/users.model.js';
-import { getDate } from '../utils/getDate.util.js';
-import { createAccessToken, createRefreshToken } from './/jwt.service.js';
+import { logger } from '../config/logger.config';
+import { TableQuery } from '../models/database';
+import { RefreshTokenModel } from '../models/refreshToken.model';
+import { UsersModel } from '../models/users.model';
+import { getDate } from '../utils/getDate.util';
+import { createAccessToken, createRefreshToken } from './jwt.service';
 import { Oauth } from './axios.service.js';
 
 // 회원가입

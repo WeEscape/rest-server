@@ -1,5 +1,5 @@
-import { TableQuery } from '../models/database.js';
-import { UsersModel } from '../models/users.model.js';
+import { TableQuery } from '../models/database';
+import { UsersModel } from '../models/users.model';
 
 const getUser = async (user_id) => {
   const sql = UsersModel.selectUserInfo(user_id);

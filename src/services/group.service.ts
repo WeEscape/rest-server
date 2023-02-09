@@ -1,5 +1,5 @@
-import { TableQuery } from '../models/database.js';
-import { GroupsModel, GroupUsersModel } from '../models/groups.model.js';
+import { TableQuery } from '../models/database';
+import { GroupsModel, GroupUsersModel } from '../models/groups.model';
 
 // 그룹
 const createGroup = async (groupData) => {

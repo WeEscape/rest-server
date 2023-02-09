@@ -1,5 +1,5 @@
-import { CategoriesModel } from '../models/categories.model.js';
-import { TableQuery } from '../models/database.js';
+import { CategoriesModel } from '../models/categories.model';
+import { TableQuery } from '../models/database';
 
 const createCategory = async (categoryData) => {
   const sql = CategoriesModel.insertCategory(categoryData);
