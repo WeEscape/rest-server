@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service.js';
 
 const authRouter = express.Router();
 
-authRouter.get('/', (req, res) => res.send('helloworldzzzz!'));
+authRouter.get('/', (req, res) => res.send(''));
 
 authRouter.post('/login', authValidation.login, async (req, res, next) => {
   try {
