@@ -1,4 +1,4 @@
-import { dobbyDB } from './database.js';
+import { dobbyDB } from './database';
 
 const selectRefresh_Token = (refreshtoken_data) => {
   const { refresh_token } = refreshtoken_data;

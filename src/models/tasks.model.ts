@@ -1,4 +1,4 @@
-import { getDate } from '../utils/getDate.util.js';
+import { getDate } from '../utils/getDate.util';
 
 const insertTask = (taskData) => {
   const { user_id, category_id } = taskData;

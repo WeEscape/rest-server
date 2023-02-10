@@ -1,7 +1,7 @@
 import {
   createInviteCode,
   createRandomId,
-} from '../utils/randomString.util.js';
+} from '../utils/randomString.util';
 
 const insertGroup = (group_data) => {
   const { user_id, title } = group_data;
