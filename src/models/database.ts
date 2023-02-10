@@ -1,10 +1,10 @@
 import mysql from 'mysql2/promise';
-import { dbconfig } from '../config/db.configs.js';
+import { dbconfig } from '../config/db.config';
 
 export const dobbyDB = mysql.createPool(dbconfig);
 
 export const TableQuery = async (sql) => {
-  const connection = await dobbyDB.getConnection(async (conn) => conn);
+  const connection = await dobbyDB.getConnection(async (conn: any) => conn);
   try {
     await connection.beginTransaction();
     const resultSets = await connection.query(sql);

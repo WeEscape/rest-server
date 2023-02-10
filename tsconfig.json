@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "es6",
+    "target": "es2017",
+    "module": "commonjs",
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -9,12 +9,12 @@
     "lib": ["es5", "es6"],
     "outDir": "./dist"
   },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJs",
-      "typeRoots": ["./@types", "./node_modules/@types"]
-    }
-  },
+  // "ts-node": {
+  //   "compilerOptions": {
+  //     "module": "commonjs",
+  //     "typeRoots": ["@types", "./node_modules/@types"]
+  //   }
+  // },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }

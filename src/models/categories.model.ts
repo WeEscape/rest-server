@@ -1,5 +1,5 @@
-import { createRandomId } from '../utils/randomString.util.js';
-import { dobbyDB } from './database.js';
+import { createRandomId } from '../utils/randomString.util';
+import { dobbyDB } from './database';
 
 const insertCategory = (categoryData) => {
   const { user_id, group_id, title } = categoryData;
