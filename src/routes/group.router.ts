@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { logger } from '../config/logger.config.js';
-import { groupValidation } from '../middleware/validation/validation.js';
-import { GroupService } from '../services/group.service.js';
-import { checkAccessToken } from '../utils/checkHeader.utll.js';
+import { logger } from '../config/logger.config';
+import { groupValidation } from '../middleware/validation/validation';
+import { GroupService } from '../services/group.service';
+import { checkAccessToken } from '../utils/checkHeader.utll';
 
 const groupRouter = express.Router();
 
@@ -26,14 +26,14 @@ groupRouter.post(
 groupRouter.get(
   '/:group_id',
   groupValidation.readGroup,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { group_id } = req.params;
       const groupData = { group_id, user_id };
       const result = await GroupService.getGroup(groupData);
 
-      if (!result.group_id) {
+      if (!result) {
         throw new Error('undefined');
       }
 
@@ -48,7 +48,7 @@ groupRouter.get(
 groupRouter.put(
   '/:group_id',
   groupValidation.updateGroup,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { group_id } = req.params;
@@ -70,7 +70,7 @@ groupRouter.put(
 groupRouter.delete(
   '/:group_id',
   groupValidation.deleteGroup,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { group_id } = req.params;
@@ -95,7 +95,7 @@ groupRouter.delete(
 groupRouter.post(
   '/users',
   groupValidation.createGroupUser,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData = req.body;
       const result = await GroupService.createGroupUser(userData);
@@ -111,7 +111,7 @@ groupRouter.post(
 groupRouter.get(
   '/users/:group_id',
   groupValidation.readGroup,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { group_id } = req.params;
@@ -134,7 +134,7 @@ groupRouter.get(
 groupRouter.delete(
   '/users/:group_id',
   groupValidation.deleteGroup,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { group_id } = req.params;

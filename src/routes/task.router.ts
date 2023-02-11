@@ -1,51 +1,59 @@
-import express from 'express';
-import { logger } from '../config/logger.config.js';
+import express, { Request, Response, NextFunction } from 'express';
+import { logger } from '../config/logger.config';
 import {
   categoryValidation,
   taskValidation,
 } from '../middleware/validation/validation.js';
-import { CategoriesService } from '../services/categories.service.js';
-import { TaskService } from '../services/task.service.js';
-import { checkAccessToken } from '../utils/checkHeader.utll.js';
+import { CategoriesService } from '../services/categories.service';
+import { TaskService } from '../services/task.service';
+import { checkAccessToken } from '../utils/checkHeader.utll';
 
 const taskRouter = express.Router();
 
 // 테스크
 
-taskRouter.post('/', taskValidation.createTask, async (req, res, next) => {
-  try {
-    const taskData = req.body;
-    const result = await TaskService.createTask(taskData);
-    return res.status(200).send({ message: 'success!', data: result });
-  } catch (err) {
-    logger.error(err);
-    return res.status(400).send(err);
-  }
-});
-
-taskRouter.get('/:task_id', taskValidation.readTask, async (req, res, next) => {
-  try {
-    const user_id = await checkAccessToken(req);
-    const { task_id } = req.params;
-
-    const taskData = { task_id, user_id };
-    const result = await TaskService.getTask(taskData);
-
-    if (!result.data) {
-      throw new Error('undefined');
+taskRouter.post(
+  '/',
+  taskValidation.createTask,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const taskData = req.body;
+      const result = await TaskService.createTask(taskData);
+      return res.status(200).send({ message: 'success!', data: result });
+    } catch (err) {
+      logger.error(err);
+      return res.status(400).send(err);
     }
+  },
+);
 
-    return res.status(200).send(result);
-  } catch (err) {
-    next(err);
-    return res.status(400).send({ message: 'task_id is not defined' });
-  }
-});
+taskRouter.get(
+  '/:task_id',
+  taskValidation.readTask,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user_id = await checkAccessToken(req);
+      const { task_id } = req.params;
+
+      const taskData = { task_id, user_id };
+      const result = await TaskService.getTask(taskData);
+
+      if (!result.data) {
+        throw new Error('undefined');
+      }
+
+      return res.status(200).send(result);
+    } catch (err) {
+      next(err);
+      return res.status(400).send({ message: 'task_id is not defined' });
+    }
+  },
+);
 
 taskRouter.put(
   '/:task_id',
   taskValidation.updateTask,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
 
@@ -67,7 +75,7 @@ taskRouter.put(
 taskRouter.delete(
   '/:task_id',
   taskValidation.deleteTask,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { task_id } = req.params;
@@ -90,7 +98,7 @@ taskRouter.delete(
 taskRouter.post(
   '/categories',
   categoryValidation.createCategory,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const categoryData = req.body;
       const result = await CategoriesService.createCategory(categoryData);
@@ -105,7 +113,7 @@ taskRouter.post(
 taskRouter.get(
   '/categories/:category_id',
   categoryValidation.readCategory,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { category_id } = req.params;
@@ -128,7 +136,7 @@ taskRouter.get(
 taskRouter.put(
   '/categories/:category_id',
   categoryValidation.updateCategory,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { category_id } = req.params;
@@ -152,7 +160,7 @@ taskRouter.put(
 taskRouter.delete(
   '/categories/:category_id',
   categoryValidation.deleteCategory,
-  async (req, res, next) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user_id = await checkAccessToken(req);
       const { category_id } = req.params;
