@@ -3,7 +3,7 @@ import { logger } from '../config/logger.config';
 import {
   categoryValidation,
   taskValidation,
-} from '../middleware/validation/validation.js';
+} from '../middleware/validation/validation';
 import { CategoriesService } from '../services/categories.service';
 import { TaskService } from '../services/task.service';
 import { checkAccessToken } from '../utils/checkHeader.utll';

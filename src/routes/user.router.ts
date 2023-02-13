@@ -10,7 +10,7 @@ userRouter.get(
   userValidation.readUser,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user_id = await checkAccessToken(req);
+      const user_id = await checkAccessToken(req) || '';
 
       if (!user_id) {
         throw new Error('undefined');

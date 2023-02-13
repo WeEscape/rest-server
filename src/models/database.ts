@@ -3,8 +3,8 @@ import { dbconfig } from '../config/db.config';
 
 export const dobbyDB = mysql.createPool(dbconfig);
 
-export const TableQuery = async (sql) => {
-  const connection = await dobbyDB.getConnection(async (conn: any) => conn);
+export const TableQuery = async (sql: any) => {
+  const connection = await dobbyDB.getConnection();
   try {
     await connection.beginTransaction();
     const resultSets = await connection.query(sql);
