@@ -1,24 +1,25 @@
+import { TaskInterface } from './../interfaces/task/task.interface';
 import { TableQuery } from '../models/database';
 import { TaskModel } from '../models/tasks.model';
 
-const createTask = async (taskData) => {
+const createTask = async (taskData :string) => {
   const sql = TaskModel.insertTask(taskData);
-  const task = await TableQuery(sql);
+  const task: any = await TableQuery(sql);
   return task[1][0];
 };
-const getTask = async (taskData) => {
+const getTask = async (taskData: TaskInterface) => {
   const sql = TaskModel.selectTask(taskData);
-  const task = await TableQuery(sql);
+  const task: any = await TableQuery(sql);
   return { data: task[0] };
 };
-const editTask = async (taskData) => {
+const editTask = async (taskData: any) => {
   const sql = TaskModel.updateTask(taskData);
-  const task = await TableQuery(sql);
+  const task: any = await TableQuery(sql);
   return task[1][0];
 };
-const deleteTask = async (taskData) => {
+const deleteTask = async (taskData: TaskInterface) => {
   const sql = TaskModel.deleteTask(taskData);
-  const task = await TableQuery(sql);
+  const task: any = await TableQuery(sql);
   return task;
 };
 

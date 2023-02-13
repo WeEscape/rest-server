@@ -4,10 +4,10 @@ import { RefreshTokenModel } from '../models/refreshToken.model';
 import { UsersModel } from '../models/users.model';
 import { getDate } from '../utils/getDate.util';
 import { createAccessToken, createRefreshToken } from './jwt.service';
-import { Oauth } from './axios.service.js';
+import { Oauth } from './axios.service';
 
 // 회원가입
-const signup = async (socialTokens) => {
+const signup = async (socialTokens: any) => {
   const userInfo = await Oauth(socialTokens);
   const sql = UsersModel.insertUser(userInfo);
   const runSQL = await TableQuery(sql);
@@ -15,12 +15,15 @@ const signup = async (socialTokens) => {
 };
 
 // 로그인
-const login = async (loginUserData) => {
-  const { socialId } = await Oauth(loginUserData);
+const login = async (loginUserData: any) => {
+  const userInfo: any = await Oauth(loginUserData);
+  const { socialId } = userInfo;
+
   const sql = UsersModel.selectUserid(socialId);
-  const loginUser = await TableQuery(sql);
+  const loginUser: any = await TableQuery(sql);
 
   const { user_id } = loginUser[0][0];
+
   if (!user_id) {
     throw Error('uesr_id not defined');
   }
@@ -31,9 +34,9 @@ const login = async (loginUserData) => {
 };
 
 // 로그아웃
-const logout = async (logoutUser_id) => {
+const logout = async (logoutUser_id: any) => {
   const { user_id } = logoutUser_id;
-  const connect_Date = getDate();
+  const connect_Date = getDate('');
 
   if (!user_id) {
     throw new Error('user_id not defined');
@@ -48,9 +51,9 @@ const logout = async (logoutUser_id) => {
 };
 
 // 토큰 재발급
-const reissueTokens = async (refreshToken) => {
+const reissueTokens = async (refreshToken: any) => {
   const sql = RefreshTokenModel.selectRefresh_Token(refreshToken);
-  const runSQL = await TableQuery(sql);
+  const runSQL: any = await TableQuery(sql);
 
   if (!runSQL) {
     throw { message: 'refresh_token Not defiend!' };

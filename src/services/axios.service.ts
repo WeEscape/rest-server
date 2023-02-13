@@ -1,20 +1,21 @@
+import { OauthInterface } from './../interfaces/auth/oauth.interface';
 import axios from 'axios';
 
-export const Oauth = async (data) => {
+export const Oauth = async (data: OauthInterface) => {
   const { social_type, access_token } = data;
-  const loginTypeMap = {
-    kakao: kakaoLogin,
-    google: googleLogin,
-    apple: 'apple',
-  };
-  const login = await loginTypeMap[social_type](access_token);
-  //console.log(login);
+
+  const login =
+    social_type === 'kakao'
+      ? await kakaoLogin(access_token)
+      : await googleLogin(access_token);
+
   return login;
 };
 
-const kakaoLogin = async (token) => {
+const kakaoLogin = async (token: string) => {
   try {
-    const response = await axios.get(process.env.KAKAO_URL, {
+    const url = process.env.KAKAO_URL || '';
+    const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -28,9 +29,10 @@ const kakaoLogin = async (token) => {
   }
 };
 
-const googleLogin = async (token) => {
+const googleLogin = async (token: string) => {
   try {
-    const response = await axios.get(process.env.GOOGLE_URL, {
+    const url = process.env.GOOGLE_URL || '';
+    const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
