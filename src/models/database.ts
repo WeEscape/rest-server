@@ -6,6 +6,7 @@ export const dobbyDB = mysql.createPool(dbconfig);
 export const TableQuery = async (sql: any) => {
   const connection = await dobbyDB.getConnection();
   try {
+    // 트랜잭션
     await connection.beginTransaction();
     const resultSets = await connection.query(sql);
     await connection.commit();
