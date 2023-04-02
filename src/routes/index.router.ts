@@ -2,10 +2,9 @@ import express, { Router, Request, Response } from 'express';
 import { logger } from '../config/logger.config';
 
 class IndexRouter {
-  private router: Router;
+  router: Router = Router();
 
   constructor() {
-    this.router = express.Router();
     this.getRouter();
   }
 
@@ -18,4 +17,6 @@ class IndexRouter {
   }
 }
 
-export default IndexRouter;
+const indexRouter = new IndexRouter();
+
+export default indexRouter.router;
