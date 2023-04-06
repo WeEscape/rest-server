@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction, Router } from 'express';
 import { logger } from '../config/logger.config';
+import taskController from '../controllers/task.controller';
 import {
   categoryValidation,
   taskValidation,
@@ -195,10 +196,14 @@ class TaskRouter {
       return res.send('hello get!');
     });
 
-    this.router.post('/', (req: Request, res: Response) => {
-      logger.info('POST /');
-      return res.send('hello post!');
+    this.router.post('/', taskController.createTask);
+
+    this.router.put('/:task_id', (req: Request, res: Response) => {
+      logger.info('PUT /');
+      return;
     });
+    this.router.delete('/:task_id');
+
   }
 }
 
