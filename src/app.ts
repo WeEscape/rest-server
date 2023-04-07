@@ -7,9 +7,7 @@ import { appConfig } from './config/app.config';
 import helmet from 'helmet';
 import { logger } from './config/logger.config';
 import groupRouter from './routes/group.router';
-import taskRouter from './routes/task.router';
 import { AppConfig } from './interfaces/config/app.interface';
-
 import TaskRouter from './routes/task.router';
 
 export class App {
