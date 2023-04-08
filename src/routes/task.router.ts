@@ -185,24 +185,15 @@ import { checkAccessToken } from '../utils/checkHeader.utll';
 
 class TaskRouter {
   router: Router = Router();
-
   constructor() {
     this.initRoutes();
   }
 
   initRoutes(): void {
-    this.router.get('/', (req: Request, res: Response) => {
-      logger.info('GET /');
-      return res.send('hello get!');
-    });
-
+    this.router.get('/:task_id', taskController.getTask);
     this.router.post('/', taskController.createTask);
-
-    this.router.put('/:task_id', (req: Request, res: Response) => {
-      logger.info('PUT /');
-      return;
-    });
-    this.router.delete('/:task_id');
+    this.router.put('/:task_id', taskController.updateTask);
+    this.router.delete('/:task_id', taskController.deleteTask);
   }
 }
 
