@@ -4,24 +4,24 @@ import { TaskService } from '../services/task.service';
 import { errorHandler } from '../middleware/error.middleware';
 import { checkAccessToken } from '../utils/checkHeader.utll';
 
-class TaskController {
-  constructor(private taskService: TaskService) {}
+export class TaskController {
+  constructor(private readonly taskService: TaskService) {}
 
   async createTask(req: Request, res: Response) {
     try {
-      logger.info('[POST] /posts - 게시물 생성');
       const taskData = req.body;
       const result = await this.taskService.createTask(taskData);
+
       return res.status(200).send({ message: 'success!', data: result });
     } catch (err) {
       logger.error(err);
+
       return errorHandler(err, req, res);
     }
   }
 
   async getTask(req: Request, res: Response) {
     try {
-      logger.info('[GET] /posts - 게시물 조회');
       const user_id = await checkAccessToken(req);
       const { task_id } = req.params;
 
@@ -34,6 +34,8 @@ class TaskController {
 
       return res.status(200).send(result);
     } catch (err) {
+      logger.error(err);
+
       return res.status(400).send({ message: 'task_id is not defined' });
     }
   }
@@ -51,6 +53,8 @@ class TaskController {
 
       return res.status(200).send({ message: 'success!', data: result });
     } catch (err) {
+      logger.error(err);
+
       return res.status(400).send({ message: 'access_token is not defined' });
     }
   }
@@ -68,13 +72,9 @@ class TaskController {
       const result = await this.taskService.deleteTask(taskData);
       return res.status(200).send({ message: 'success delete' });
     } catch (err) {
+      logger.error(err);
+
       return res.status(400).send({ message: 'access_token is not defined' });
     }
   }
 }
-
-const taskService = new TaskService();
-const taskController = new TaskController(taskService);
-export default taskController;
-
-
