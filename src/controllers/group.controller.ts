@@ -9,6 +9,8 @@ export class GroupController {
 
   async createGroup(req: Request, res: Response) {
     try {
+      logger.info('[POST] /gruop/:group_id - 그룹 생성');
+
       const groupData = req.body;
       const result = await this.groupService.createGroup(groupData);
 
@@ -22,6 +24,8 @@ export class GroupController {
 
   async getGroup(req: Request, res: Response) {
     try {
+      logger.info('[GET] /gruop/ - 그룹 조회');
+
       const user_id = await checkAccessToken(req);
       const { group_id } = req.params;
       const groupData = { group_id, user_id };
@@ -41,6 +45,8 @@ export class GroupController {
 
   async updateGruop(req: Request, res: Response) {
     try {
+      logger.info('[PUT] /gruop/:group_id - 그룹 수정');
+
       const user_id = await checkAccessToken(req);
       const { group_id } = req.params;
       const { title } = req.body;
@@ -61,6 +67,8 @@ export class GroupController {
 
   async deleteGroup(req: Request, res: Response) {
     try {
+      logger.info('[DELETE] /gruop/:group_id - 그룹 삭제');
+
       const user_id = await checkAccessToken(req);
       const { group_id } = req.params;
 
