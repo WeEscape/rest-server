@@ -9,6 +9,8 @@ export class TaskController {
 
   async createTask(req: Request, res: Response) {
     try {
+      logger.info('[POST] /posts - 게시물 생성');
+
       const taskData = req.body;
       const result = await this.taskService.createTask(taskData);
 
@@ -22,6 +24,8 @@ export class TaskController {
 
   async getTask(req: Request, res: Response) {
     try {
+      logger.info('[GET] /posts - 게시물 조회');
+
       const user_id = await checkAccessToken(req);
       const { task_id } = req.params;
 
@@ -42,6 +46,8 @@ export class TaskController {
 
   async updateTask(req: Request, res: Response) {
     try {
+      logger.info('[PUT] /posts - 게시물 수정');
+
       const user_id = await checkAccessToken(req);
 
       if (!user_id) {
@@ -61,6 +67,8 @@ export class TaskController {
 
   async deleteTask(req: Request, res: Response) {
     try {
+      logger.info('[DELTE] /posts - 게시물 삭제');
+
       const user_id = await checkAccessToken(req);
       const { task_id } = req.params;
 
