@@ -1,66 +1,26 @@
-import express, { Request, Response, NextFunction } from 'express';
+import { AuthController } from './../controllers/auth.controller';
+import express, { Request, Response, NextFunction, Router } from 'express';
 import { authValidation } from '../middleware/validation/validation';
 import { AuthService } from '../services/auth.service';
 
-const authRouter = express.Router();
+class AuthRouter {
+  router: Router = Router();
+  authController: AuthController;
 
-authRouter.get('/', (req, res) => res.send(''));
+  constructor() {
+    const authService = new AuthService();
+    this.authController = new AuthController(authService);
+    this.initRoutes();
+  }
 
-authRouter.post(
-  '/login',
-  authValidation.login,
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const loginUserData = req.body;
-      const resultLogin = await AuthService.login(loginUserData);
+  initRoutes() {
+    this.router.post('/signup', this.authController.signup);
+    this.router.post('/login', this.authController.login);
+    this.router.post('/logout', this.authController.logout);
+    this.router.post('/tokens', this.authController.reissueToken);
+  }
+}
 
-      return res.status(200).send();
-    } catch (err: any) {
-      next(err);
-    }
-  },
-);
+const authRouter = new AuthRouter();
 
-authRouter.post(
-  '/signup',
-  authValidation.signup,
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const socialTokens = req.body;
-      const resultsigunup = await AuthService.signup(socialTokens);
-      return res.status(200).send({ data: resultsigunup });
-    } catch (err) {
-      next(err);
-    }
-  },
-);
-
-authRouter.post(
-  '/logout',
-  authValidation.logout,
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const logoutUser_id = req.body;
-      const resultLogout = await AuthService.logout(logoutUser_id);
-      return res.status(200).send({ data: resultLogout });
-    } catch (err) {
-      next(err);
-    }
-  },
-);
-
-authRouter.post(
-  '/tokens',
-  authValidation.refreshToken,
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const refreshToken = req.body;
-      const resultTokens = await AuthService.reissueTokens(refreshToken);
-      return res.status(200).send({ data: resultTokens });
-    } catch (err) {
-      next(err);
-    }
-  },
-);
-
-export default authRouter;
+export default authRouter.router;
