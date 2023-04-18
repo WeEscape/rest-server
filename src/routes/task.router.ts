@@ -8,8 +8,8 @@ class TaskRouter {
   taskController: TaskController;
 
   constructor() {
-
-    this.taskController = new TaskController();
+    const taskService = new TaskService();
+    this.taskController = new TaskController(taskService);
     this.initRoutes();
   }
 
