@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import { logger } from './config/logger.config';
 import groupRouter from './routes/group.router';
 import { AppConfig } from './interfaces/config/app.interface';
-import TaskRouter from './routes/task.router';
+import taskRouter from './routes/task.router';
 
 export class App {
   private app: express.Application;
@@ -21,6 +21,7 @@ export class App {
     this.routers();
   }
 
+   /** app middleware 설정 */
   middleware(): void {
     this.app.use(express.json());
     this.app.use(helmet());
@@ -33,9 +34,10 @@ export class App {
     this.app.use('/users/profile', userRouter);
     this.app.use('/auth', authRouter);
     this.app.use('/groups', groupRouter);
-    this.app.use('/task', TaskRouter);
+    this.app.use('/task', taskRouter);
   }
 
+   /** app port 설정 */
   async serverMain(): Promise<void> {
     this.app.listen(this.port, () =>
       logger.info(`Open Server Port ${process.env.PORT || this.port}`),
