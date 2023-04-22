@@ -1,3 +1,4 @@
+import { TaskRepository } from './../models/tasks.model';
 import express, { Request, Response, NextFunction, Router } from 'express';
 import { logger } from '../config/logger.config';
 import { TaskController } from '../controllers/task.controller';
@@ -8,7 +9,8 @@ class TaskRouter {
   taskController: TaskController;
 
   constructor() {
-    const taskService = new TaskService();
+    const taskRepository = new TaskRepository();
+    const taskService = new TaskService(taskRepository);
     this.taskController = new TaskController(taskService);
     this.initRoutes();
   }
