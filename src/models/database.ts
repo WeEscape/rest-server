@@ -1,20 +1,25 @@
-import mysql from 'mysql2/promise';
+import mysql, { Pool } from 'mysql2/promise';
 import { dbconfig } from '../config/db.config';
 
-export const dobbyDB = mysql.createPool(dbconfig);
+export class DbConnection {
+  private pool: Pool;
 
-export const TableQuery = async (sql: any) => {
-  const connection = await dobbyDB.getConnection();
-  try {
-    // 트랜잭션
-    await connection.beginTransaction();
-    const resultSets = await connection.query(sql);
-    await connection.commit();
-    return resultSets[0];
-  } catch (err) {
-    await connection.rollback();
-    return err;
-  } finally {
-    connection.release();
+  constructor() {
+    this.pool = mysql.createPool(dbconfig);
   }
-};
+
+  async execute(sql: any, params: any) {
+    const connection = await this.pool.getConnection();
+    try {
+      await connection.beginTransaction();
+      const result = await connection.query(sql, params);
+      await connection.commit();
+      return result[0];
+    } catch (err) {
+      await connection.rollback();
+      return err;
+    } finally {
+      connection.release();
+    }
+  }
+}
