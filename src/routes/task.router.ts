@@ -1,6 +1,5 @@
-import { TaskRepository } from './../models/tasks.model';
-import express, { Request, Response, NextFunction, Router } from 'express';
-import { logger } from '../config/logger.config';
+import { TaskRepository } from '../models/tasks.repository';
+import { Router } from 'express';
 import { TaskController } from '../controllers/task.controller';
 import { TaskService } from '../services/task.service';
 
