@@ -1,15 +1,26 @@
+import { AuthRepository } from '../models/refreshToken.repository';
+import { UserRepository } from '../models/users.repository';
 import { AuthController } from './../controllers/auth.controller';
 import express, { Request, Response, NextFunction, Router } from 'express';
 import { authValidation } from '../middleware/validation/validation';
 import { AuthService } from '../services/auth.service';
+import { JwtService } from '../services/jwt.service';
 
 class AuthRouter {
   router: Router = Router();
   authController: AuthController;
 
   constructor() {
-    const authService = new AuthService();
-    this.authController = new AuthController(authService);
+    const userRepository = new UserRepository();
+    const authRepository = new AuthRepository();
+    const jwtService = new JwtService(authRepository);
+    const authService = new AuthService(
+      userRepository,
+      authRepository,
+      jwtService,
+    );
+    
+    this.authController = new AuthController();
     this.initRoutes();
   }
 
