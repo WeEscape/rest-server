@@ -1,5 +1,3 @@
-import { TableQuery } from '../models/database';
-import { UsersModel } from '../models/users.model';
 import { UserRepository } from '../models/users.repository';
 
 export class UserService {
