@@ -1,29 +1,26 @@
 import { TaskInterface } from './../interfaces/task/task.interface';
-import { TableQuery } from '../models/database';
-import { TaskModel } from '../models/tasks.model';
+import { TaskRepository } from '../models/tasks.repository';
 
 export class TaskService {
+  constructor(private readonly taskRepository: TaskRepository) {}
+
   async createTask(taskData: TaskInterface) {
-    const sql = TaskModel.insertTask(taskData);
-    const task: any = await TableQuery(sql);
-    return task[1][0];
+    const result = await this.taskRepository.createTask(taskData);
+    return result;
   }
 
   async getTask(taskData: TaskInterface) {
-    const sql = TaskModel.selectTask(taskData);
-    const task: any = await TableQuery(sql);
-    return { data: task[0] };
+    const result = await this.taskRepository.selectTask(taskData);
+    return { data: result };
   }
 
   async editTask(taskData: TaskInterface) {
-    const sql = TaskModel.updateTask(taskData);
-    const task: any = await TableQuery(sql);
-    return task[1][0];
+    const result = await this.taskRepository.updateTask(taskData);
+    return result;
   }
 
   async deleteTask(taskData: TaskInterface) {
-    const sql = TaskModel.deleteTask(taskData);
-    const task: any = await TableQuery(sql);
-    return task;
+    const result = await this.taskRepository.deleteTask(taskData);
+    return result;
   }
 }
