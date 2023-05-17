@@ -11,6 +11,6 @@ FROM node:16-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 COPY .env .
-COPY --from=build /app/api/node_modules node_modules
-COPY --from=build /app/api/dist dist
-CMD ["node","dist/main"]
+COPY --from=build /app/node_modules node_modules
+COPY --from=build /app/dist dist
+CMD ["node","dist/app.js"]
